@@ -1,4 +1,5 @@
-import { Actor, Color, Keys, Vector, CollisionType } from "excalibur"
+import { Actor, Color, Keys, Vector, CollisionType, Animation } from "excalibur"
+import { Resources, SamuraiIdleSheet } from "./resources"
 
 export class Player extends Actor {
     runSpeed = 300
@@ -6,13 +7,23 @@ export class Player extends Actor {
 
     constructor() {
         super({
-            width: 40,
-            height: 40,
-            color: Color.Red,
+            width: 96,
+            height: 96,
             pos: new Vector(600,300)
         })
         // Enable physics for collision
         this.body.collisionType = CollisionType.Active
+    }
+
+    onInitialize() {
+        // Create animations from sprite sheet
+        const idle = Animation.fromSpriteSheet(SamuraiIdleSheet, [0,1,2,3,4,5,6,7,8,9],100)
+
+        // Add animations to player
+        this.graphics.add("idle", idle)
+
+        // Set default animation
+        this.graphics.use("idle")
     }
 
     onPreUpdate(engine) {
@@ -23,8 +34,12 @@ export class Player extends Actor {
             xspeed = -this.runSpeed
         }
 
-        if (engine.input.keyboard.isHeld(Keys.D) || engine.input.keyboard.isHeld(Keys.Right)) {
+        else if (engine.input.keyboard.isHeld(Keys.D) || engine.input.keyboard.isHeld(Keys.Right)) {
             xspeed = this.runSpeed
+        }
+
+        else {
+            this.graphics.use("idle")
         }
 
         this.vel.x = xspeed

@@ -1,4 +1,4 @@
-import { Actor, Color, Vector } from "excalibur"
+import { Actor, Color, Vector, CollisionType } from "excalibur"
 
 export class Platform extends Actor {
     constructor() {
@@ -9,6 +9,6 @@ export class Platform extends Actor {
             pos: new Vector(640,650)
         })
 
-        this.body.collisionType = CollisionType.Fixed
+        this.body.collisionType = CollisionType.Fixed;
     }
 }

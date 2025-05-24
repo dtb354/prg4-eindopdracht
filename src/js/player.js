@@ -1,5 +1,6 @@
 import { Actor, Color, Keys, Vector, CollisionType, Animation } from "excalibur"
 import { Resources, SamuraiIdleSheet } from "./resources"
+import { Coin } from "./coin"
 
 export class Player extends Actor {
     runSpeed = 300
@@ -25,6 +26,9 @@ export class Player extends Actor {
 
         // Set default animation
         this.graphics.use("idle")
+
+        // Collision handler
+        this.on("collisionstart", (event) => this.handleCollision(event));
     }
 
     onPreUpdate(engine) {
@@ -48,6 +52,12 @@ export class Player extends Actor {
         // Jump when space is pressed and player is on ground
         if ((engine.input.keyboard.wasPressed(Keys.Space) || engine.input.keyboard.wasPressed(Keys.Up)) && this.vel.y === 0) {
             this.vel.y = this.jumpSpeed
+        }
+    }
+
+    handleCollision(event) {
+        if (event.other.owner instanceof Coin) {
+            event.other.owner.hit();
         }
     }
 }

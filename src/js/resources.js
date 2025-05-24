@@ -3,7 +3,8 @@ import { ImageSource, Sound, Resource, Loader, SpriteSheet } from 'excalibur'
 // voeg hier jouw eigen resources toe
 const Resources = {
     Fish: new ImageSource('images/fish.png'),
-    SamuraiIdle: new ImageSource('images/IDLE.png')
+    SamuraiIdle: new ImageSource('images/IDLE.png'),
+    Coin: new ImageSource ('images/coin.png')
 }
 
 // Create a sprite sheet after the image loads 

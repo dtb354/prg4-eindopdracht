@@ -3,6 +3,7 @@ import { Actor, Engine, Vector, DisplayMode } from "excalibur"
 import { Resources, ResourceLoader } from './resources.js'
 import { Platform } from "./platform.js"
 import { Player } from "./player.js"
+import { Coin } from "./coin.js"
 
 export class Game extends Engine {
 
@@ -22,9 +23,11 @@ export class Game extends Engine {
     startGame() {
         const platform = new Platform()
         const player = new Player()
-        
+        const coin = new Coin()
+
         this.add(platform)
         this.add(player)
+        this.add(coin)
     }
 }
 

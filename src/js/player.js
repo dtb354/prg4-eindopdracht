@@ -1,10 +1,13 @@
 import { Actor, Color, Keys, Vector, CollisionType, Animation } from "excalibur"
 import { Resources, SamuraiIdleSheet } from "./resources"
 import { Coin } from "./coin"
+import { UI } from "./ui"
 
 export class Player extends Actor {
-    runSpeed = 300
-    jumpSpeed = -500
+
+    runSpeed = 300;
+    jumpSpeed = -500;
+    score = 0;
 
     constructor() {
         super({
@@ -60,7 +63,15 @@ export class Player extends Actor {
 
     handleCollision(event) {
         if (event.other.owner instanceof Coin) {
-            event.other.owner.hit();
+        event.other.owner.hit()
+        this.score += 10
+        // Find UI instance in the scene and update score
+        const ui = this.scene.actors.find(actor => actor instanceof UI)
+        if (ui) {
+            ui.updateScore()
         }
+
+        //this.scene?.engine.ui.updateScore(this.score, this);
+    }
     }
 }

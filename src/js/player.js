@@ -9,7 +9,8 @@ export class Player extends Actor {
         super({
             width: 96,
             height: 96,
-            pos: new Vector(600,300)
+            pos: new Vector(600,300),
+            
         })
         // Enable physics for collision
         this.body.collisionType = CollisionType.Active

@@ -4,12 +4,12 @@ import { Coin } from "./coin"
 
 export class Player extends Actor {
     runSpeed = 300
-    jumpSpeed = -400
+    jumpSpeed = -500
 
     constructor() {
         super({
-            width: 96,
-            height: 96,
+            width: 16,
+            height: 32,
             pos: new Vector(600,300),
             
         })
@@ -20,6 +20,9 @@ export class Player extends Actor {
     onInitialize() {
         // Create animations from sprite sheet
         const idle = Animation.fromSpriteSheet(SamuraiIdleSheet, [0,1,2,3,4,5,6,7,8,9],100)
+
+        // Scale up the animation
+        //idle.scale = new Vector(2, 2)  // Doubles the size
 
         // Add animations to player
         this.graphics.add("idle", idle)

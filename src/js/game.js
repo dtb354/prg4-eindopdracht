@@ -1,5 +1,5 @@
 import '../css/style.css'
-import { Actor, Engine, Vector, DisplayMode } from "excalibur"
+import { Actor, Engine, Vector, DisplayMode, } from "excalibur"
 import { Resources, ResourceLoader } from './resources.js'
 import { Platform } from "./platform.js"
 import { Player } from "./player.js"
@@ -21,11 +21,19 @@ export class Game extends Engine {
     }
 
     startGame() {
-        const platform = new Platform()
+        const platforms = [
+            new Platform(new Vector(640,650)), 
+            new Platform(new Vector(200,600)),
+            new Platform(new Vector(1000, 600)),
+        ]
         const player = new Player()
         const coin = new Coin()
 
-        this.add(platform)
+        // Add all platforms 
+        for (const platform of platforms) {
+            this.add(platform)
+        }
+
         this.add(player)
         this.add(coin)
     }

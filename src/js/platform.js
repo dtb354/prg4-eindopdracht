@@ -1,12 +1,12 @@
 import { Actor, Color, Vector, CollisionType } from "excalibur"
 
 export class Platform extends Actor {
-    constructor() {
+    constructor(pos) {
         super({
-            width: 800,
-            height: 50,
+            width: 500,
+            height: 25,
             color: Color.Gray,
-            pos: new Vector(640,650)
+            pos: pos
         })
 
         this.body.collisionType = CollisionType.Fixed;

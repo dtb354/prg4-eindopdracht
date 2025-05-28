@@ -35,6 +35,8 @@ export class Player extends Actor {
         // Scale up the animation
         //idle.scale = new Vector(2, 2)  // Doubles the size
 
+        //added a comment to player.js to test github push
+
         // Add animations to player
         this.graphics.add("idle", idle)
 

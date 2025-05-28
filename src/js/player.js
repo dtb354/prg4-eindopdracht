@@ -53,11 +53,13 @@ export class Player extends Actor {
         // Left movement
         if (engine.input.keyboard.isHeld(Keys.A) || engine.input.keyboard.isHeld(Keys.Left)) {
             xspeed = -this.runSpeed
+            this.graphics.flipHorizontal = true
         }
 
         // Right movement
         else if (engine.input.keyboard.isHeld(Keys.D) || engine.input.keyboard.isHeld(Keys.Right)) {
             xspeed = this.runSpeed
+            this.graphics.flipHorizontal = false
         }
 
         //Idle animation set standard

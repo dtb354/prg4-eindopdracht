@@ -8,7 +8,7 @@ import { UI } from "./ui.js"
 
 export class Game extends Engine {
 
-    ui;
+    #ui;
 
     constructor() {
         super({ 
@@ -45,8 +45,8 @@ export class Game extends Engine {
         this.add(player);
         this.add(coin);
 
-        this.ui = new UI(player);
-        this.add(this.ui);
+        this.#ui = new UI(player);
+        this.add(this.#ui);
 
     this.currentScene.camera.strategy.lockToActorAxis(player, Axis.X);
     this.currentScene.camera.strategy.lockToActorAxis(player, Axis.Y);

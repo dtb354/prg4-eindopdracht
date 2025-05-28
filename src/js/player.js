@@ -6,7 +6,7 @@ import { UI } from "./ui"
 export class Player extends Actor {
 
     runSpeed = 300;
-    jumpSpeed = -500;
+    jumpPower = -500;
     score = 0;
     lives = 5;
 
@@ -95,7 +95,7 @@ export class Player extends Actor {
     jump(engine, delta) {
         // Jump when space is pressed and player is on ground
         if ((engine.input.keyboard.wasPressed(Keys.Space) || engine.input.keyboard.wasPressed(Keys.Up)) && this.vel.y === 0) {
-            this.vel.y = this.jumpSpeed
+            this.vel.y = this.jumpPower
             //this.body.applyLinearImpulse(new Vector(0, -250 * delta));
         }   
     }

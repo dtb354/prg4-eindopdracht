@@ -1,5 +1,5 @@
 import { Actor, Color, Keys, Vector, CollisionType, Animation, DegreeOfFreedom, Shape } from "excalibur"
-import { Resources, SamuraiIdleSheet } from "./resources"
+import { Resources, SamuraiIdleSheet, SamuraiRunningSheet } from "./resources"
 import { Coin } from "./coin"
 import { UI } from "./ui"
 
@@ -8,6 +8,7 @@ export class Player extends Actor {
     runSpeed = 300;
     jumpSpeed = -500;
     score = 0;
+    lives = 5;
 
     constructor() {
         super({
@@ -30,15 +31,15 @@ export class Player extends Actor {
         this.collider.set(hitbox);
 
         // Create animations from sprite sheet
-        const idle = Animation.fromSpriteSheet(SamuraiIdleSheet, [0,1,2,3,4,5,6,7,8,9],100)
+        const idle = Animation.fromSpriteSheet(SamuraiIdleSheet, [0,1,2,3,4,5,6,7,8,9],100);
+        const run = Animation.fromSpriteSheet(SamuraiRunningSheet, [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15],100);
 
         // Scale up the animation
         //idle.scale = new Vector(2, 2)  // Doubles the size
 
-        //added a comment to player.js to test github push
-
         // Add animations to player
-        this.graphics.add("idle", idle)
+        this.graphics.add("idle", idle);
+        this.graphics.add("run", run);
 
         // Set default animation
         this.graphics.use("idle")
@@ -48,32 +49,8 @@ export class Player extends Actor {
     }
 
     onPreUpdate(engine, delta) {
-        let xspeed = 0
-
-        // Left movement
-        if (engine.input.keyboard.isHeld(Keys.A) || engine.input.keyboard.isHeld(Keys.Left)) {
-            xspeed = -this.runSpeed
-            this.graphics.flipHorizontal = true
-        }
-
-        // Right movement
-        else if (engine.input.keyboard.isHeld(Keys.D) || engine.input.keyboard.isHeld(Keys.Right)) {
-            xspeed = this.runSpeed
-            this.graphics.flipHorizontal = false
-        }
-
-        //Idle animation set standard
-        else {
-            this.graphics.use("idle")
-        }
-
-        this.vel.x = xspeed
-
-        // Jump when space is pressed and player is on ground
-        if ((engine.input.keyboard.wasPressed(Keys.Space) || engine.input.keyboard.wasPressed(Keys.Up)) && this.vel.y === 0) {
-            //this.vel.y = this.jumpSpeed
-            this.body.applyLinearImpulse(new Vector(0, -250 * delta));
-        }   
+        this.run(engine);
+        this.jump(engine, delta);
     }
 
     handleCollision(event) {
@@ -88,5 +65,38 @@ export class Player extends Actor {
 
         //this.scene?.engine.ui.updateScore(this.score, this);
     }
+    }
+
+    run(engine) {
+        let xspeed = 0
+
+        // Left movement
+        if (engine.input.keyboard.isHeld(Keys.A) || engine.input.keyboard.isHeld(Keys.Left)) {
+            xspeed = -this.runSpeed
+            this.graphics.use("run")
+            this.graphics.flipHorizontal = true
+        }
+
+        // Right movement
+        else if (engine.input.keyboard.isHeld(Keys.D) || engine.input.keyboard.isHeld(Keys.Right)) {
+            xspeed = this.runSpeed
+            this.graphics.use("run")
+            this.graphics.flipHorizontal = false
+        }
+
+        //Idle animation set standard
+        else {
+            this.graphics.use("idle")
+        }
+
+        this.vel.x = xspeed
+    }
+
+    jump(engine, delta) {
+        // Jump when space is pressed and player is on ground
+        if ((engine.input.keyboard.wasPressed(Keys.Space) || engine.input.keyboard.wasPressed(Keys.Up)) && this.vel.y === 0) {
+            //this.vel.y = this.jumpSpeed
+            this.body.applyLinearImpulse(new Vector(0, -250 * delta));
+        }   
     }
 }

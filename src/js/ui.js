@@ -1,6 +1,6 @@
-import { Actor, Color, Label, Vector, Font } from "excalibur"
+import { Actor, Color, Label, Vector, Font, ScreenElement } from "excalibur"
 
-export class UI extends Actor {
+export class UI extends ScreenElement {
 
     #playerLabel;
     player;

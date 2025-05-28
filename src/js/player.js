@@ -1,4 +1,4 @@
-import { Actor, Color, Keys, Vector, CollisionType, Animation } from "excalibur"
+import { Actor, Color, Keys, Vector, CollisionType, Animation, DegreeOfFreedom, Shape } from "excalibur"
 import { Resources, SamuraiIdleSheet } from "./resources"
 import { Coin } from "./coin"
 import { UI } from "./ui"
@@ -14,13 +14,21 @@ export class Player extends Actor {
             width: 16,
             height: 32,
             pos: new Vector(600,300),
-            
         })
-        // Enable physics for collision
-        this.body.collisionType = CollisionType.Active
     }
 
     onInitialize() {
+
+        // Enable physics for collision
+        this.body.collisionType = CollisionType.Active
+
+        this.body.useGravity = true;
+        this.body.limitDegreeOfFreedom.push(DegreeOfFreedom.Rotation);
+
+        //hitbox setup
+        const hitbox = Shape.Box(16, 32, Vector.Half, new Vector(0, 15));
+        this.collider.set(hitbox);
+
         // Create animations from sprite sheet
         const idle = Animation.fromSpriteSheet(SamuraiIdleSheet, [0,1,2,3,4,5,6,7,8,9],100)
 
@@ -37,7 +45,7 @@ export class Player extends Actor {
         this.on("collisionstart", (event) => this.handleCollision(event));
     }
 
-    onPreUpdate(engine) {
+    onPreUpdate(engine, delta) {
         let xspeed = 0
 
         // Left movement
@@ -45,10 +53,12 @@ export class Player extends Actor {
             xspeed = -this.runSpeed
         }
 
+        // Right movement
         else if (engine.input.keyboard.isHeld(Keys.D) || engine.input.keyboard.isHeld(Keys.Right)) {
             xspeed = this.runSpeed
         }
 
+        //Idle animation set standard
         else {
             this.graphics.use("idle")
         }
@@ -57,8 +67,9 @@ export class Player extends Actor {
 
         // Jump when space is pressed and player is on ground
         if ((engine.input.keyboard.wasPressed(Keys.Space) || engine.input.keyboard.wasPressed(Keys.Up)) && this.vel.y === 0) {
-            this.vel.y = this.jumpSpeed
-        }
+            //this.vel.y = this.jumpSpeed
+            this.body.applyLinearImpulse(new Vector(0, -250 * delta));
+        }   
     }
 
     handleCollision(event) {

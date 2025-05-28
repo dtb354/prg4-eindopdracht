@@ -1,5 +1,5 @@
 import '../css/style.css'
-import { Actor, Engine, Vector, DisplayMode, } from "excalibur"
+import { Actor, Engine, Vector, DisplayMode, Axis, SolverStrategy } from "excalibur"
 import { Resources, ResourceLoader } from './resources.js'
 import { Platform } from "./platform.js"
 import { Player } from "./player.js"
@@ -15,11 +15,15 @@ export class Game extends Engine {
             width: 1280,
             height: 720,
             maxFps: 60,
-            displayMode: DisplayMode.FitScreen
+            displayMode: DisplayMode.FitScreen,
+            physics: {
+                solver: SolverStrategy.Arcade,
+                gravity: new Vector(0,800)
+            }
          })
 
         // Enable physics with downward gravity
-        this.physics.gravity = new Vector(0, 900) ;
+        //this.physics.gravity = new Vector(0, 900);
         this.start(ResourceLoader).then(() => this.startGame());
     }
 
@@ -43,6 +47,10 @@ export class Game extends Engine {
 
         this.ui = new UI(player);
         this.add(this.ui);
+
+    this.currentScene.camera.strategy.lockToActorAxis(player, Axis.X);
+    this.currentScene.camera.strategy.lockToActorAxis(player, Axis.Y);
+    this.currentScene.camera.zoom = 1.5;
     }
 }
 

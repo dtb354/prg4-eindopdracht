@@ -56,8 +56,10 @@ export class Player extends Actor {
     handleCollision(event) {
         if (event.other.owner instanceof Coin) {
         event.other.owner.hit()
-        this.score += 10
-        // Find UI instance in the scene and update score
+
+        // Add coin's value to score
+        this.score += event.other.owner.value
+        
         const ui = this.scene.actors.find(actor => actor instanceof UI)
         if (ui) {
             ui.updateScore()

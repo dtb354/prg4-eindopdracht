@@ -5,6 +5,7 @@ import { Platform } from "./platform.js"
 import { Player } from "./player.js"
 import { Coin } from "./coin.js"
 import { UI } from "./ui.js"
+import { SuperCoin } from './superCoin.js'
 
 export class Game extends Engine {
 
@@ -34,16 +35,33 @@ export class Game extends Engine {
             new Platform(new Vector(1000, 600)),
         ]
 
+        const coins = [
+            new Coin(new Vector(800,500)),
+            new Coin(new Vector(900,500)),
+        ]
+
+        const superCoins = [
+            new SuperCoin(new Vector(400,500)),
+        ]
+
         const player = new Player();
-        const coin = new Coin();
 
         // Add all platforms 
         for (const platform of platforms) {
             this.add(platform);
         }
 
+        // Add all normal coins
+        for (const coin of coins) {
+            this.add(coin);
+        }
+
+        // Add all Super Coins
+        for (const superCoin of superCoins) {
+            this.add(superCoin);
+        }
+
         this.add(player);
-        this.add(coin);
 
         this.#ui = new UI(player);
         this.add(this.#ui);

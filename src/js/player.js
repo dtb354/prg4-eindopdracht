@@ -16,6 +16,7 @@ export class Player extends Actor {
             width: 16,
             height: 32,
             pos: new Vector(600,300),
+            anchor: new Vector(0.5, 0.75),
         })
     }
 
@@ -28,7 +29,7 @@ export class Player extends Actor {
         this.body.limitDegreeOfFreedom.push(DegreeOfFreedom.Rotation);
 
         //hitbox setup
-        const hitbox = Shape.Box(16, 32, Vector.Half, new Vector(0, 15));
+        const hitbox = Shape.Box(16, 32, Vector.Half, new Vector(0, -8));
         this.collider.set(hitbox);
 
         // Create animations from sprite sheet
@@ -75,7 +76,7 @@ export class Player extends Actor {
             if (this.pos.y < event.other.owner.pos.y) {
                 event.other.owner.kill();
                 this.score += event.other.owner.value
-            } else {
+            } else  {
                 this.lives--;
             }
         }

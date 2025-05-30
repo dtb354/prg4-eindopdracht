@@ -22,7 +22,6 @@ export class Enemy extends Actor {
 
         // Enable physics for collision
         this.body.collisionType = CollisionType.Active;
-
         this.body.useGravity = true;
         this.body.limitDegreeOfFreedom.push(DegreeOfFreedom.Rotation);
 

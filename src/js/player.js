@@ -9,7 +9,7 @@ export class Player extends Actor {
     runSpeed = 300;
     jumpPower = -500;
     score = 0;
-    lives = 5;
+    lives = 3;
 
     constructor() {
         super({
@@ -63,9 +63,6 @@ export class Player extends Actor {
 
         // Add coin's value to score
         this.score += event.other.owner.value
-        
-        
-
         //this.scene?.engine.ui.updateScore(this.score, this);
         }
 
@@ -128,7 +125,7 @@ export class Player extends Actor {
 
             const ui = this.scene.actors.find(actor => actor instanceof UI);
             if (ui) {
-                ui.updateLives()
+                ui.updateLives();
             }
         }
     }
@@ -136,6 +133,11 @@ export class Player extends Actor {
     deathHandler() {
         if (this.lives <= 0){
             this.kill()
+            const ui = this.scene.actors.find(actor => actor instanceof UI);
+            if (ui) {
+                ui.updateLives();
+                ui.deathMessage();
+            }
         }
     }
 

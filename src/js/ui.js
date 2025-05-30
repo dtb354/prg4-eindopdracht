@@ -4,6 +4,7 @@ export class UI extends ScreenElement {
 
     #scoreLabel;
     #livesLabel;
+    #deathMessage;
     player;
 
     constructor(player) {
@@ -15,7 +16,7 @@ export class UI extends ScreenElement {
         
         //UI for player score
         this.#scoreLabel = new Label({
-            text: 'Score 0',
+            text: 'Score: 0',
             pos: new Vector(100, 50),
             font: new Font({
                 size: 20,
@@ -26,7 +27,7 @@ export class UI extends ScreenElement {
 
         //UI for player lives
         this.#livesLabel = new Label({
-            text: 'Lives 5',
+            text: 'Lives: 3',
             pos: new Vector(100,80),
             font: new Font({
                 size: 20,
@@ -36,14 +37,28 @@ export class UI extends ScreenElement {
         })
 
         this.addChild(this.#scoreLabel);
-        this.addChild(this.#livesLabel)
+        this.addChild(this.#livesLabel);
     }
 
     updateScore() {
-        this.#scoreLabel.text = `Score ${this.player.score}`;
+        this.#scoreLabel.text = `Score: ${this.player.score}`;
     }
 
     updateLives() {
-        this.#livesLabel.text = `Lives ${this.player.lives}`
+        this.#livesLabel.text = `Lives: ${this.player.lives}`
+    }
+
+    deathMessage() {
+        this.#deathMessage = new Label ({
+            text: 'GAME OVER :(',
+            pos: new Vector(640,100),
+            font: new Font({
+                size: 32,
+                family: 'Open Sans',
+                color: Color.Red
+            })
+        })
+
+        this.addChild(this.#deathMessage);
     }
 }

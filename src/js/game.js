@@ -46,7 +46,7 @@ export class Game extends Engine {
         ]
 
         const enemies = [
-            new Enemy(new Vector(200, 500)),
+            new Enemy(new Vector(250, 500)),
         ]
 
         const player = new Player();

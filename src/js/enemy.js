@@ -2,6 +2,11 @@ import { Actor, CollisionType, DegreeOfFreedom, Animation, Vector } from "excali
 import { FrogRunningSheet } from "./resources";
 
 export class Enemy extends Actor {
+
+    #moveSpeed = 100;
+    #moveDistance = 150;
+    #startPosX = 0;
+    #movingRight = true;
     
     constructor(pos){
         super({
@@ -9,6 +14,8 @@ export class Enemy extends Actor {
             width: 32,
             height: 32,
         })
+
+        this.value = 10
     }
 
     onInitialize(){
@@ -29,6 +36,25 @@ export class Enemy extends Actor {
     }
 
     onPreUpdate() {
+        this.#patrol();
+    }
 
+    #patrol() {
+        // Move right until reaching max distance
+        if (this.#movingRight) {
+            this.vel.x = this.#moveSpeed
+            this.graphics.flipHorizontal = false
+            if (this.pos.x > this.#startPosX + this.#moveDistance) {
+                this.#movingRight = false
+            }
+        } 
+        // Move left until reaching start position
+        else {
+            this.vel.x = -this.#moveSpeed
+            this.graphics.flipHorizontal = true
+            if (this.pos.x < this.#startPosX) {
+                this.#movingRight = true
+            }
+        }
     }
 }

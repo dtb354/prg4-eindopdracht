@@ -2,6 +2,7 @@ import { Actor, Color, Keys, Vector, CollisionType, Animation, DegreeOfFreedom, 
 import { Resources, SamuraiIdleSheet, SamuraiRunningSheet } from "./resources"
 import { Coin } from "./coin"
 import { UI } from "./ui"
+import { Enemy } from "./enemy";
 
 export class Player extends Actor {
 
@@ -62,13 +63,28 @@ export class Player extends Actor {
         // Add coin's value to score
         this.score += event.other.owner.value
         
-        const ui = this.scene.actors.find(actor => actor instanceof UI)
-        if (ui) {
-            ui.updateScore()
-        }
+        
 
         //this.scene?.engine.ui.updateScore(this.score, this);
-    }
+        }
+
+        // Contact with an enemy
+        if (event.other.owner instanceof Enemy) {
+
+            // Check if player is on top of enemy
+            if (this.pos.y < event.other.owner.pos.y) {
+                event.other.owner.kill();
+                this.score += event.other.owner.value
+            } else {
+                this.lives--;
+            }
+        }
+        
+        const ui = this.scene.actors.find(actor => actor instanceof UI)
+        if (ui) {
+            ui.updateScore();
+            ui.updateLives();
+        }
     }
 
     run(engine) {
@@ -121,4 +137,6 @@ export class Player extends Actor {
             this.kill()
         }
     }
+
+    
 }

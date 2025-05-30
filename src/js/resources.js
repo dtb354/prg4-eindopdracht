@@ -5,7 +5,8 @@ const Resources = {
     Fish: new ImageSource('images/fish.png'),
     SamuraiIdle: new ImageSource('images/IDLE.png'),
     SamuraiRunning: new ImageSource('images/RUN.png'),
-    Coin: new ImageSource ('images/coin.png')
+    Coin: new ImageSource ('images/coin.png'),
+    FrogEnemy: new ImageSource ('images/frogRun(32).png'),
 }
 
 // Create a sprite sheet after the image loads 
@@ -30,10 +31,20 @@ const SamuraiRunningSheet = SpriteSheet.fromImageSource({
     }
 })
 
+const FrogRunningSheet = SpriteSheet.fromImageSource({
+    image: Resources.FrogEnemy,
+    grid: {
+        rows: 1,
+        columns: 12,
+        spriteWidth: 32,
+        spriteHeight: 32
+    }
+})
+
 
 const ResourceLoader = new Loader()
 for (let res of Object.values(Resources)) {
     ResourceLoader.addResource(res)
 }
 
-export { Resources, ResourceLoader, SamuraiIdleSheet, SamuraiRunningSheet }
+export { Resources, ResourceLoader, SamuraiIdleSheet, SamuraiRunningSheet, FrogRunningSheet }

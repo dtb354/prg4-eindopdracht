@@ -51,6 +51,8 @@ export class Player extends Actor {
     onPreUpdate(engine, delta) {
         this.run(engine);
         this.jump(engine, delta);
+        this.boundaryHandler();
+        this.deathHandler();
     }
 
     handleCollision(event) {
@@ -100,5 +102,23 @@ export class Player extends Actor {
             this.vel.y = this.jumpPower
             //this.body.applyLinearImpulse(new Vector(0, -250 * delta));
         }   
+    }
+
+    boundaryHandler() {
+        if (this.pos.y > 700){
+            this.lives--;
+            this.pos = new Vector(600,300);
+
+            const ui = this.scene.actors.find(actor => actor instanceof UI);
+            if (ui) {
+                ui.updateLives()
+            }
+        }
+    }
+
+    deathHandler() {
+        if (this.lives <= 0){
+            this.kill()
+        }
     }
 }

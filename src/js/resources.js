@@ -54,7 +54,7 @@ const SawObstacleSheet = SpriteSheet.fromImageSource({
 })
 
 const FlagGoalSheet = SpriteSheet.fromImageSource({
-    image: FlagGoal,
+    image: Resources.FlagGoal,
     grid: {
         rows: 1,
         columns: 5,

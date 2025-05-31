@@ -8,6 +8,7 @@ import { UI } from "./ui.js"
 import { SuperCoin } from './superCoin.js'
 import { Enemy } from './enemy.js'
 import { Saw } from './saw.js'
+import { FlagGoal } from './flaggoal.js'
 
 export class Game extends Engine {
 
@@ -51,7 +52,7 @@ export class Game extends Engine {
             new Saw(new Vector(1000, 500)),
         ]
 
-        const player = new Player();
+        
 
         // Add all platforms 
         for (const platform of platforms) {
@@ -73,7 +74,11 @@ export class Game extends Engine {
             this.add(obstacle);
         }
 
+        const player = new Player();
         this.add(player);
+        
+        const flagGoal = new FlagGoal(1215, 590);
+        this.add(flagGoal);
 
         this.#ui = new UI(player);
         this.add(this.#ui);

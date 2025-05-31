@@ -4,6 +4,7 @@ import { Coin } from "./coin"
 import { UI } from "./ui"
 import { Enemy } from "./enemy";
 import { Saw } from "./saw";
+import { FlagGoal } from "./flaggoal";
 
 export class Player extends Actor {
 
@@ -82,6 +83,17 @@ export class Player extends Actor {
         // Contact with Saw
         if (event.other.owner instanceof Saw) {
             this.lives--;
+        }
+
+
+        // Contact with flag goal
+        if (event.other.owner instanceof FlagGoal) {
+            const ui = this.scene.actors.find(actor => actor instanceof UI);
+            if (ui) {
+                ui.victoryMessage();
+            }
+
+            this.kill()
         }
         
         const ui = this.scene.actors.find(actor => actor instanceof UI)

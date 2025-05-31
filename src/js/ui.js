@@ -4,7 +4,7 @@ export class UI extends ScreenElement {
 
     #scoreLabel;
     #livesLabel;
-    #deathMessage;
+    #endingMessage;
     player;
 
     constructor(player) {
@@ -49,7 +49,7 @@ export class UI extends ScreenElement {
     }
 
     deathMessage() {
-        this.#deathMessage = new Label ({
+        this.#endingMessage = new Label ({
             text: 'GAME OVER :(',
             pos: new Vector(640,100),
             font: new Font({
@@ -59,6 +59,20 @@ export class UI extends ScreenElement {
             })
         })
 
-        this.addChild(this.#deathMessage);
+        this.addChild(this.#endingMessage);
+    }
+
+    victoryMessage() {
+        this.#endingMessage = new Label ({
+            text: 'VICTORY :D',
+            pos: new Vector(640,100),
+            font: new Font({
+                size: 32,
+                family: 'Open Sans',
+                color: Color.Red
+            })
+        })
+
+        this.addChild(this.#endingMessage);
     }
 }

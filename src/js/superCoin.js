@@ -10,9 +10,6 @@ export class SuperCoin extends Coin {
     }
 
     onInitialize() {
-        // Call parent initialization
-        super.onInitialize();
-        
         // Get coin sprite and tint it blue
         const sprite = Resources.Coin.toSprite();
         sprite.tint = Color.Blue;

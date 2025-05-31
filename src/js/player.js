@@ -3,6 +3,7 @@ import { Resources, SamuraiIdleSheet, SamuraiRunningSheet } from "./resources"
 import { Coin } from "./coin"
 import { UI } from "./ui"
 import { Enemy } from "./enemy";
+import { Saw } from "./saw";
 
 export class Player extends Actor {
 
@@ -76,6 +77,11 @@ export class Player extends Actor {
             } else  {
                 this.lives--;
             }
+        }
+
+        // Contact with Saw
+        if (event.other.owner instanceof Saw) {
+            this.lives--;
         }
         
         const ui = this.scene.actors.find(actor => actor instanceof UI)

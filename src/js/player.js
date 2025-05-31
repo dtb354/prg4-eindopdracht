@@ -8,8 +8,8 @@ import { FlagGoal } from "./flaggoal";
 
 export class Player extends Actor {
 
-    runSpeed = 300;
-    jumpPower = -500;
+    #runSpeed = 500;
+    #jumpPower = -500;
     score = 0;
     lives = 3;
 
@@ -53,10 +53,10 @@ export class Player extends Actor {
     }
 
     onPreUpdate(engine, delta) {
-        this.run(engine);
-        this.jump(engine, delta);
-        this.boundaryHandler();
-        this.deathHandler();
+        this.#run(engine);
+        this.#jump(engine, delta);
+        this.#boundaryHandler();
+        this.#deathHandler();
     }
 
     handleCollision(event) {
@@ -88,7 +88,7 @@ export class Player extends Actor {
 
         // Contact with flag goal
         if (event.other.owner instanceof FlagGoal) {
-            this.victoryHandler();
+            this.#victoryHandler();
         }
         
         const ui = this.scene.actors.find(actor => actor instanceof UI)
@@ -98,19 +98,19 @@ export class Player extends Actor {
         }
     }
 
-    run(engine) {
+    #run(engine) {
         let xspeed = 0
 
         // Left movement
         if (engine.input.keyboard.isHeld(Keys.A) || engine.input.keyboard.isHeld(Keys.Left)) {
-            xspeed = -this.runSpeed
+            xspeed = -this.#runSpeed
             this.graphics.use("run")
             this.graphics.flipHorizontal = true
         }
 
         // Right movement
         else if (engine.input.keyboard.isHeld(Keys.D) || engine.input.keyboard.isHeld(Keys.Right)) {
-            xspeed = this.runSpeed
+            xspeed = this.#runSpeed
             this.graphics.use("run")
             this.graphics.flipHorizontal = false
         }
@@ -123,15 +123,15 @@ export class Player extends Actor {
         this.vel.x = xspeed
     }
 
-    jump(engine, delta) {
+    #jump(engine, delta) {
         // Jump when space is pressed and player is on ground
         if ((engine.input.keyboard.wasPressed(Keys.Space) || engine.input.keyboard.wasPressed(Keys.Up)) && this.vel.y === 0) {
-            this.vel.y = this.jumpPower
+            this.vel.y = this.#jumpPower
             //this.body.applyLinearImpulse(new Vector(0, -250 * delta));
         }   
     }
 
-    boundaryHandler() {
+    #boundaryHandler() {
         if (this.pos.y > 700){
             this.lives--;
             this.pos = new Vector(600,300);
@@ -143,7 +143,7 @@ export class Player extends Actor {
         }
     }
 
-    deathHandler() {
+    #deathHandler() {
         if (this.lives <= 0){
             this.kill()
             const ui = this.scene.actors.find(actor => actor instanceof UI);
@@ -154,12 +154,12 @@ export class Player extends Actor {
         }
     }
 
-    victoryHandler() {
+    #victoryHandler() {
         const ui = this.scene.actors.find(actor => actor instanceof UI);
 
         if (ui) {
             ui.victoryMessage();
-            this.saveHighScore();
+            this.#saveHighScore();
             ui.showHighScore();
         }
 
@@ -168,7 +168,7 @@ export class Player extends Actor {
         this.kill()
     }
 
-    saveHighScore() {
+    #saveHighScore() {
         // Get current high score from localStorage
         const currentHighScore = localStorage.getItem('highScore') || 0;
         

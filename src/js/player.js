@@ -38,9 +38,6 @@ export class Player extends Actor {
         const idle = Animation.fromSpriteSheet(SamuraiIdleSheet, [0,1,2,3,4,5,6,7,8,9],100);
         const run = Animation.fromSpriteSheet(SamuraiRunningSheet, [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15],100);
 
-        // Scale up the animation
-        //idle.scale = new Vector(2, 2)  // Doubles the size
-
         // Add animations to player
         this.graphics.add("idle", idle);
         this.graphics.add("run", run);

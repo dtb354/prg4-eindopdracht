@@ -159,7 +159,7 @@ export class Player extends Actor {
 
         if (ui) {
             ui.victoryMessage();
-            this.saveHighScore()
+            this.saveHighScore();
             ui.showHighScore();
         }
 
@@ -170,11 +170,11 @@ export class Player extends Actor {
 
     saveHighScore() {
         // Get current high score from localStorage
-        const currentHighScore = localStorage.getItem('highScore') || 0
+        const currentHighScore = localStorage.getItem('highScore') || 0;
         
         // Update if current score is higher
         if (this.score > currentHighScore) {
-            localStorage.setItem('highScore', this.score)
+            localStorage.setItem('highScore', this.score);
         }
     }
 }

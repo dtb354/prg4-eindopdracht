@@ -58,7 +58,7 @@ export class UI extends ScreenElement {
     }
 
     updateLives() {
-        this.#livesLabel.text = `Lives: ${this.player.lives}`
+        this.#livesLabel.text = `Lives: ${this.player.lives}`;
     }
 
     deathMessage() {
@@ -90,7 +90,7 @@ export class UI extends ScreenElement {
     }
 
     showHighScore() {
-        const currentHighScore = localStorage.getItem('highScore') || 0
-        this.#highScoreLabel.text = `High Score: ${currentHighScore}`
+        const currentHighScore = localStorage.getItem('highScore') || 0;
+        this.#highScoreLabel.text = `High Score: ${currentHighScore}`;
     }
 }

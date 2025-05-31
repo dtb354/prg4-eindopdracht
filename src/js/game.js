@@ -12,8 +12,6 @@ import { FlagGoal } from './flaggoal.js'
 
 export class Game extends Engine {
 
-    #ui;
-
     constructor() {
         super({ 
             width: 1280,
@@ -89,8 +87,8 @@ export class Game extends Engine {
         const flagGoal = new FlagGoal(2633, 440);
         this.add(flagGoal);
 
-        this.#ui = new UI(player);
-        this.add(this.#ui);
+        const ui = new UI(player);
+        this.add(ui);
 
     this.currentScene.camera.strategy.lockToActorAxis(player, Axis.X);
     this.currentScene.camera.strategy.lockToActorAxis(player, Axis.Y);

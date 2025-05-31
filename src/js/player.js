@@ -88,12 +88,7 @@ export class Player extends Actor {
 
         // Contact with flag goal
         if (event.other.owner instanceof FlagGoal) {
-            const ui = this.scene.actors.find(actor => actor instanceof UI);
-            if (ui) {
-                ui.victoryMessage();
-            }
-
-            this.kill()
+            this.victoryHandler();
         }
         
         const ui = this.scene.actors.find(actor => actor instanceof UI)
@@ -159,5 +154,27 @@ export class Player extends Actor {
         }
     }
 
-    
+    victoryHandler() {
+        const ui = this.scene.actors.find(actor => actor instanceof UI);
+
+        if (ui) {
+            ui.victoryMessage();
+            this.saveHighScore()
+            ui.showHighScore();
+        }
+
+        
+
+        this.kill()
+    }
+
+    saveHighScore() {
+        // Get current high score from localStorage
+        const currentHighScore = localStorage.getItem('highScore') || 0
+        
+        // Update if current score is higher
+        if (this.score > currentHighScore) {
+            localStorage.setItem('highScore', this.score)
+        }
+    }
 }

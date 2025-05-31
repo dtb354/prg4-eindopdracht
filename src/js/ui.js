@@ -5,6 +5,7 @@ export class UI extends ScreenElement {
     #scoreLabel;
     #livesLabel;
     #endingMessage;
+    #highScoreLabel;
     player;
 
     constructor(player) {
@@ -36,6 +37,18 @@ export class UI extends ScreenElement {
             })
         })
 
+        //UI for high score 
+        this.#highScoreLabel = new Label({
+            text: `High Score: ${localStorage.getItem('highScore') || 0}`,
+            pos: new Vector(100, 110),
+            font: new Font({
+                size: 20,
+                family: 'Open Sans',
+                color: Color.Yellow
+            })
+        })
+
+        this.addChild(this.#highScoreLabel);
         this.addChild(this.#scoreLabel);
         this.addChild(this.#livesLabel);
     }
@@ -74,5 +87,10 @@ export class UI extends ScreenElement {
         })
 
         this.addChild(this.#endingMessage);
+    }
+
+    showHighScore() {
+        const currentHighScore = localStorage.getItem('highScore') || 0
+        this.#highScoreLabel.text = `High Score: ${currentHighScore}`
     }
 }

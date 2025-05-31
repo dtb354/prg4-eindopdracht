@@ -21,7 +21,6 @@ export class Coin extends Actor {
         const sprite = Resources.Coin.toSprite();
         sprite.scale = new Vector(0.1, 0.1);
         this.graphics.use(sprite);
-        console.log('Coin Created');
 
         this.value = 10;
     }

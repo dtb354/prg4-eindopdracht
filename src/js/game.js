@@ -7,6 +7,7 @@ import { Coin } from "./coin.js"
 import { UI } from "./ui.js"
 import { SuperCoin } from './superCoin.js'
 import { Enemy } from './enemy.js'
+import { Saw } from './saw.js'
 
 export class Game extends Engine {
 
@@ -39,14 +40,15 @@ export class Game extends Engine {
         const coins = [
             new Coin(new Vector(800,500)),
             new Coin(new Vector(900,500)),
-        ]
-
-        const superCoins = [
             new SuperCoin(new Vector(400,500)),
         ]
 
         const enemies = [
             new Enemy(new Vector(250, 500)),
+        ]
+
+        const obstacles = [
+            new Saw(new Vector(1000, 500)),
         ]
 
         const player = new Player();
@@ -60,16 +62,15 @@ export class Game extends Engine {
         for (const coin of coins) {
             this.add(coin);
         }
-
-        // Add all Super Coins
-        for (const superCoin of superCoins) {
-            this.add(superCoin);
-        }
         
         // Add all enemies
         for (const enemy of enemies) {
             this.add(enemy);
-            console.log('enemy created');
+        }
+
+        // Add all saws
+        for (const obstacle of obstacles) {
+            this.add(obstacle);
         }
 
         this.add(player);

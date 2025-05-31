@@ -16,6 +16,8 @@ export class Enemy extends Actor {
         })
 
         this.value = 10
+
+        this.#startPosX = pos.x;
     }
 
     onInitialize(){

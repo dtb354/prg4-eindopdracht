@@ -161,9 +161,7 @@ export class Player extends Actor {
             ui.victoryMessage();
             this.#saveHighScore();
             ui.showHighScore();
-        }
-
-        
+        } 
 
         this.kill()
     }

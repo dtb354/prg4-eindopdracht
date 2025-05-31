@@ -33,23 +33,32 @@ export class Game extends Engine {
 
     startGame() {
         const platforms = [
-            new Platform(new Vector(640,650)), 
+            new Platform(new Vector(640,630)), 
             new Platform(new Vector(200,600)),
             new Platform(new Vector(1000, 600)),
+            new Platform(new Vector(1700, 500)),
+            new Platform(new Vector(2400, 450))
         ]
 
         const coins = [
-            new Coin(new Vector(800,500)),
-            new Coin(new Vector(900,500)),
-            new SuperCoin(new Vector(400,500)),
+            new Coin(new Vector(800,550)),
+            new Coin(new Vector(900,550)),
+            new SuperCoin(new Vector(400,550)),
+            new Coin(new Vector(1625, 450)),
+            new SuperCoin(new Vector(1700, 450)),
+            new Coin(new Vector(1775, 450)),
         ]
 
         const enemies = [
             new Enemy(new Vector(250, 500)),
+            new Enemy(new Vector(1000, 500)),
+            new Enemy(new Vector(1625, 480)),
         ]
 
         const obstacles = [
-            new Saw(new Vector(1000, 500)),
+            new Saw(new Vector(1000, 550)),
+            new Saw(new Vector(725, 580)),
+            new Saw(new Vector(2150, 450)),
         ]
 
         
@@ -77,7 +86,7 @@ export class Game extends Engine {
         const player = new Player();
         this.add(player);
         
-        const flagGoal = new FlagGoal(1215, 590);
+        const flagGoal = new FlagGoal(2633, 440);
         this.add(flagGoal);
 
         this.#ui = new UI(player);

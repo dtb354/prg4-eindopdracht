@@ -7,6 +7,7 @@ export class Enemy extends Actor {
     #moveDistance = 150;
     #startPosX = 0;
     #movingRight = true;
+    value = 10;
     
     constructor(pos){
         super({
@@ -15,7 +16,7 @@ export class Enemy extends Actor {
             height: 32,
         })
 
-        this.value = 10
+
 
         this.#startPosX = pos.x;
     }

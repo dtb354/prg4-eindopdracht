@@ -3,10 +3,11 @@ import { Resources } from "./resources"
 import { Coin } from "./coin";
 
 export class SuperCoin extends Coin {
+
+    value = 50;
+    
     constructor(pos) {
         super(pos)
-        // Set score value higher than regular coin
-        this.value = 50;
     }
 
     onInitialize() {

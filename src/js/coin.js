@@ -3,6 +3,8 @@ import { Resources } from "./resources"
 
 export class Coin extends Actor {
 
+    value = 10;
+
     constructor(pos){
         // Get original image dimensions and scale them
         const scale = 0.1;
@@ -22,7 +24,6 @@ export class Coin extends Actor {
         sprite.scale = new Vector(0.1, 0.1);
         this.graphics.use(sprite);
 
-        this.value = 10;
     }
 
     onInitialize(){
